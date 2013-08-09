@@ -1,10 +1,7 @@
-<h1>Listing drafts</h1>
+<h1>Drafts</h1>
 
-<table>
-  <tr>
-    <th>User</th>
-    <th>From name</th>
-    <th>From email</th>
+<table border="2">
+  <tr>  
     <th>To email</th>
     <th>Subject</th>
     <th>Html body</th>
@@ -16,20 +13,18 @@
 
 <% @drafts.each do |draft| %>
   <tr>
-    <td><%= draft.user %></td>
     <td><%= draft.from_name %></td>
     <td><%= draft.from_email %></td>
     <td><%= draft.to_email %></td>
     <td><%= draft.subject %></td>
     <td><%= draft.html_body %></td>
     <td><%= draft.text_body %></td>
-    <td><%= link_to 'Show', draft %></td>
     <td><%= link_to 'Edit', edit_draft_path(draft) %></td>
-    <td><%= link_to 'Destroy', draft, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Discard', draft, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Draft', new_draft_path %>
+<%= link_to 'New Mail', new_draft_path %>

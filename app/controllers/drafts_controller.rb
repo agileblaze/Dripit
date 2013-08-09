@@ -1,8 +1,8 @@
 class DraftsController < ApplicationController
   # GET /drafts
   # GET /drafts.json
-  def index
-    @drafts = Draft.all
+    def index
+    @drafts = current_user.drafts
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,21 +10,10 @@ class DraftsController < ApplicationController
     end
   end
 
-  # GET /drafts/1
-  # GET /drafts/1.json
-  def show
-    @draft = Draft.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @draft }
-    end
-  end
-
   # GET /drafts/new
   # GET /drafts/new.json
   def new
-    @draft = Draft.new
+    @draft = current_user.drafts.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -32,6 +21,43 @@ class DraftsController < ApplicationController
     end
   end
 
+  # GET /drafts/1/edit
+  def edit
+    @draft = current_user.drafts.find(params[:id])
+  end
+
+  # POST /drafts
+  # POST /drafts.json
+  def create
+    if params[:commit] == "Save to Draft"
+      @draft = current_user.drafts.new(params[:draft])
+      @draft.from_name = current_user.name
+      @draft.from_email = current_user.email
+
+      respond_to do |format|
+        if @draft.save
+          format.html { redirect_to root_url, notice: 'Draft was successfully created.' }
+          format.json { render json: root_url, status: :created, location: @draft }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @draft.errors, status: :unprocessable_entity }
+        end
+      end    
+    elsif params[:commit] == 'Publish'
+      @draft = current_user.drafts.new(params[:draft])
+      @draft.from_name = current_user.name
+      @draft.from_email = current_user.email
+      @draft.save
+      attributes = @draft.attributes
+      attributes.delete "id"
+      attributes.delete "created_at"
+      attributes.delete "updated_at"
+      if email = Email.create(attributes)
+        @draft.destroy
+      end
+      format.html { redirect_to root_url, notice: 'Email Sent successfully.' }  
+    end 
+  end
   # GET /drafts/1/edit
   def edit
     @draft = Draft.find(params[:id])
