@@ -11,7 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130730213936) do
+ActiveRecord::Schema.define(:version => 20130809000632) do
+
+  create_table "drafts", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "from_name"
+    t.string   "from_email"
+    t.string   "to_email"
+    t.string   "subject"
+    t.text     "html_body"
+    t.text     "text_body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "drafts", ["user_id"], :name => "index_drafts_on_user_id"
 
   create_table "emails", :force => true do |t|
     t.integer  "user_id"
