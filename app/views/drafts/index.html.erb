@@ -13,8 +13,6 @@
 
 <% @drafts.each do |draft| %>
   <tr>
-    <td><%= draft.from_name %></td>
-    <td><%= draft.from_email %></td>
     <td><%= draft.to_email %></td>
     <td><%= draft.subject %></td>
     <td><%= draft.html_body %></td>

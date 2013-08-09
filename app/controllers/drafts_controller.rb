@@ -55,7 +55,8 @@ class DraftsController < ApplicationController
       if email = Email.create(attributes)
         @draft.destroy
       end
-      format.html { redirect_to root_url, notice: 'Email Sent successfully.' }  
+      redirect_to root_url
+      flash[:notice] = "Email was successfully sent."   
     end 
   end
 
@@ -83,7 +84,8 @@ class DraftsController < ApplicationController
       if email = Email.create(attributes)
         @draft.destroy
       end
-      format.html { redirect_to root_url, notice: 'Email Sent successfully.' }  
+      redirect_to root_url
+      flash[:notice] = "Email was successfully sent."
     end    
   end
 
