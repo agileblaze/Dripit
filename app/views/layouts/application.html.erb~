@@ -14,11 +14,12 @@
   <% else %>
     <%= link_to "Sign up", sign_up_path %> or
     <%= link_to "log in", log_in_path %>
-  <% end %>  
+  <% end %>
 </div>
 <% if flash[:notice] %>
     <p class="flash-notice" style="color:red"><%= flash[:notice] %></p>
   <% end %>
+
 <%= yield %>
 
 </body>

@@ -1,36 +1,3 @@
-<%= form_for(@draft) do |f| %>
-  <% if @draft.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@draft.errors.count, "error") %> prohibited this draft from being saved:</h2>
-
-      <ul>
-      <% @draft.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %> 
-  
-  <div class="field">
-    <%= f.label :to_email %><br />
-    <%= f.text_field :to_email %>
-  </div>
-  <div class="field">
-    <%= f.label :subject %><br />
-    <%= f.text_field :subject %>
-  </div>
-  <div class="field">
-    <%= f.label :html_body %><br />
-    <%= f.text_area :html_body %>
-  </div>
-  <div class="field">
-    <%= f.label :text_body %><br />
-    <%= f.text_area :text_body %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Save to Draft"%>
-    <%= f.submit "Publish" %>    
-  </div>
-<% end %>
+<%= render partial: "form" %>
 
 <%= link_to 'Back', drafts_path %>

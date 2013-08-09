@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     redirect_to root_url, :notice => "Logged out!"
   end
-
+#using strong params
   private
     def password_params
       params.require(:user).permit(:email, :password)
