@@ -7,19 +7,42 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div id="user_nav">
+  <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+           <%= link_to "Home", root_path, id: "logo" %>
+ <div id="user_nav">
   <% if current_user %>
-    Logged in as <%= current_user.email %>.
+    Logged in as <%= current_user.email %>
+    <nav>
+       <ul class="nav pull-right">
     <%= link_to "Log out", log_out_path %>
+      </ul>
+    </nav>
   <% else %>
-    <%= link_to "Sign up", sign_up_path %> or
-    <%= link_to "log in", log_in_path %>
+   <nav>
+        <ul class="nav pull-right">
+        <%= link_to "Sign up", sign_up_path %> or
+        <%= link_to "log in", log_in_path %>
+        </ul>
+        </nav>
+
+
+
+    
   <% end %>  
 </div>
 <% if flash[:notice] %>
     <p class="flash-notice" style="color:red"><%= flash[:notice] %></p>
   <% end %>
+
+</div>
+</div>
+</header>
+  <div class="container">
 <%= yield %>
+<%= render 'layouts/footer' %>
+  </div>
 
 </body>
 </html>

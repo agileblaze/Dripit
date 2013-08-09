@@ -1,4 +1,8 @@
-<h1>Home</h1>
+<div class="center hero-unit">
+<h1>Welcome !!</h1>
+<h2>Test our Sample App</h2>
+  <%= link_to "Sign up now!", sign_up_path, class: "btn btn-large btn-primary" %>
+</div>
 <% if current_user %>
     Logged in as <%= current_user.email %>.
     <%= link_to 'Mail box', drafts_path %>
