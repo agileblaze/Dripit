@@ -34,6 +34,6 @@ class User < ActiveRecord::Base
     end
   end
   has_many :emails
-  has_many :drafts
-  
+  has_many :drafts 
+
 end

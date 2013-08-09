@@ -3,7 +3,6 @@ class DraftsController < ApplicationController
   # GET /drafts.json
   def index
     @drafts = current_user.drafts
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @drafts }
@@ -36,7 +35,7 @@ class DraftsController < ApplicationController
 
       respond_to do |format|
         if @draft.save
-          format.html { redirect_to root_url, notice: 'Draft was successfully created.' }
+          format.html { redirect_to drafts_path, notice: 'Draft was successfully created.' }
           format.json { render json: root_url, status: :created, location: @draft }
         else
           format.html { render action: "new" }
@@ -67,7 +66,7 @@ class DraftsController < ApplicationController
       @draft = current_user.drafts.find(params[:id])
       respond_to do |format|
         if @draft.update_attributes(params[:draft])
-          format.html { redirect_to root_url, notice: 'Draft was successfully updated.' }
+          format.html { redirect_to drafts_path, notice: 'Draft was successfully updated.' }
           format.json { head :no_content }
         else
           format.html { render action: "edit" }
@@ -84,7 +83,7 @@ class DraftsController < ApplicationController
       if email = Email.create(attributes)
         @draft.destroy
       end
-      redirect_to root_url
+      redirect_to drafts_path
       flash[:notice] = "Email was successfully sent."
     end    
   end
@@ -96,7 +95,7 @@ class DraftsController < ApplicationController
     @draft.destroy
 
     respond_to do |format|
-      format.html { redirect_to drafts_url }
+      format.html { redirect_to drafts_path }
       format.json { head :no_content }
     end
   end   
