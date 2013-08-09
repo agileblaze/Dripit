@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @draft.user %>
+</p>
+
+<p>
+  <b>From name:</b>
+  <%= @draft.from_name %>
+</p>
+
+<p>
+  <b>From email:</b>
+  <%= @draft.from_email %>
+</p>
+
+<p>
+  <b>To email:</b>
+  <%= @draft.to_email %>
+</p>
+
+<p>
+  <b>Subject:</b>
+  <%= @draft.subject %>
+</p>
+
+<p>
+  <b>Html body:</b>
+  <%= @draft.html_body %>
+</p>
+
+<p>
+  <b>Text body:</b>
+  <%= @draft.text_body %>
+</p>
+
+
+<%= link_to 'Edit', edit_draft_path(@draft) %> |
+<%= link_to 'Back', drafts_path %>
