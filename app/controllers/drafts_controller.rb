@@ -29,12 +29,12 @@ class DraftsController < ApplicationController
   # POST /drafts.json
   def create
     if params[:commit] == "Save to Draft"
-      @draft = current_user.drafts.new(params[:draft])
-      @draft.from_name = current_user.name
-      @draft.from_email = current_user.email
+      draft = current_user.drafts.new(params[:draft])
+      draft.from_name = current_user.name
+      draft.from_email = current_user.email
 
       respond_to do |format|
-        if @draft.save
+        if draft.save
           format.html { redirect_to drafts_path, notice: 'Draft was successfully created.' }
           format.json { render json: root_url, status: :created, location: @draft }
         else
@@ -43,16 +43,16 @@ class DraftsController < ApplicationController
         end
       end    
     elsif params[:commit] == 'Publish'
-      @draft = current_user.drafts.new(params[:draft])
-      @draft.from_name = current_user.name
-      @draft.from_email = current_user.email
-      @draft.save
-      attributes = @draft.attributes
+      draft = current_user.drafts.new(params[:draft])
+      draft.from_name = current_user.name
+      draft.from_email = current_user.email
+      draft.save
+      attributes = draft.attributes
       attributes.delete "id"
       attributes.delete "created_at"
       attributes.delete "updated_at"
       if email = Email.create(attributes)
-        @draft.destroy
+        draft.destroy
       end
       redirect_to root_url
       flash[:notice] = "Email was successfully sent."   
@@ -63,9 +63,9 @@ class DraftsController < ApplicationController
   # PUT /drafts/1.json
   def update
     if params[:commit] == "Save to Draft"
-      @draft = current_user.drafts.find(params[:id])
+      draft = current_user.drafts.find(params[:id])
       respond_to do |format|
-        if @draft.update_attributes(params[:draft])
+        if draft.update_attributes(params[:draft])
           format.html { redirect_to drafts_path, notice: 'Draft was successfully updated.' }
           format.json { head :no_content }
         else
@@ -74,14 +74,14 @@ class DraftsController < ApplicationController
         end
       end
     elsif params[:commit] == 'Publish'
-      @draft = current_user.drafts.find(params[:id])
-      @draft.update_attributes(params[:draft])
-      attributes = @draft.attributes
+      draft = current_user.drafts.find(params[:id])
+      draft.update_attributes(params[:draft])
+      attributes = draft.attributes
       attributes.delete "id"
       attributes.delete "created_at"
       attributes.delete "updated_at"
       if email = Email.create(attributes)
-        @draft.destroy
+        draft.destroy
       end
       redirect_to drafts_path
       flash[:notice] = "Email was successfully sent."
